@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend/APIs for Sportfanszone",
+  "keywords": [
+    "backend",
+    "api",
+    "sportfanszone",
+    "nodejs",
+    "js",
+    "website",
+    "express"
+  ],
+  "homepage": "https://github.com/sportfanszone/backend#readme",
+  "bugs": {
+    "url": "https://github.com/sportfanszone/backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sportfanszone/backend.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
