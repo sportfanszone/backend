@@ -1,14 +1,25 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3001;
 const cors = require("cors");
-const bodyParser = require("body-parser");
+const session = require("express-session");
 
-// parse form data
+const PORT = process.env.PORT || 3001;
+
+const app = express();
+const db = require("./models");
+
 app.use(express.json());
-
-// CORS
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 5 * 60 * 24,
+      secure: process.env.NODE_ENV === "production",
+    },
+  })
+);
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -19,6 +30,13 @@ app.use(
 // Routes
 app.use(require("./routes"));
 
-app.listen(PORT, () =>
-  console.log(`Server Up and running: http://localhost:${PORT}`)
-);
+db.sequelize
+  .sync({ force: false, alter: false, benchmark: true })
+  .then(() => {
+    console.log(`Database connection successful!`);
+
+    app.listen(PORT, () =>
+      console.log(`Server Up and running: http://localhost:${PORT}`)
+    );
+  })
+  .catch((error) => console.error("Database connection failed!", error));
