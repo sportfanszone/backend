@@ -35,6 +35,8 @@ module.exports = async (req, res) => {
     req.session.user = req.body;
     req.session.otpExpires = Date.now() + 3 * 60 * 1000;
 
+    console.log("Generated Otp: " + otp);
+
     res.cookie("allowOtp", "true", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

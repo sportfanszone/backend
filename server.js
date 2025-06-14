@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 const PORT = process.env.PORT || 3001;
 
@@ -9,6 +10,7 @@ const app = express();
 const db = require("./models");
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
