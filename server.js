@@ -15,7 +15,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 5 * 60 * 24,
+      maxAge: 1 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === "production",
     },
   })
@@ -26,8 +26,6 @@ app.use(
     credentials: true,
   })
 );
-
-// Routes
 app.use(require("./routes"));
 
 db.sequelize
