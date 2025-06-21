@@ -63,12 +63,43 @@ module.exports = async (req, res) => {
       },
     ];
 
+    const league = {
+      id: "1",
+      name: "Premier League",
+      logo: "/images/premierLeagueLogo.png",
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit.",
+      clubCount: 24,
+      lastActivity: "Today, May 10th",
+      createdAt: "May 2, 2025",
+      memberCount: "225k",
+    };
+
+    const user = {
+      username: "username",
+      profileImage: "/images/blankProfile.png",
+    };
+
+    const relatedLeagues = [
+      {
+        id: "1",
+        name: "Bundesliga",
+        logo: "/images/bundesligaLogo.png",
+      },
+      {
+        id: "2",
+        name: "La Liga",
+        logo: "/images/laLigaLogo.png",
+      },
+    ];
+
     setTimeout(
       () =>
         res.json({
           status: "success",
-          status: "ok",
           clubs,
+          league,
+          relatedLeagues,
+          user,
         }),
       2000
     );
