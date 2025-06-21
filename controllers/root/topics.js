@@ -3,6 +3,96 @@ module.exports = async (req, res) => {
     const topics = {
       posts: 10,
       followers: 200,
+      topics: [
+        {
+          id: 1,
+          title:
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+        {
+          id: 2,
+          title: "Lorem ipsum dolor sit, amet consectetur adipisicing.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+        {
+          id: 3,
+          title: "Lorem ipsum dolor sit, amet consectetur adipisicing.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+        {
+          id: 1,
+          title:
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit, voluptatum.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+        {
+          id: 2,
+          title:
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit, tum.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+        {
+          id: 3,
+          title:
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, voluptatum.",
+          likes: 10,
+          comments: 5,
+          upVotes: 20,
+          createdAt: "10:02AM",
+          user: {
+            firstName: "John",
+            middleName: "Doe",
+            lastName: "Nna",
+            profileImage: "/images/blankProfile.png",
+          },
+        },
+      ],
       topContributors: [
         {
           id: 1,
