@@ -92,17 +92,13 @@ module.exports = async (req, res) => {
       },
     ];
 
-    setTimeout(
-      () =>
-        res.json({
-          status: "success",
-          clubs,
-          league,
-          relatedLeagues,
-          user,
-        }),
-      2000
-    );
+    res.json({
+      status: "success",
+      clubs,
+      league,
+      relatedLeagues,
+      user,
+    });
   } catch (error) {
     console.error("Error in clubs controller:", error);
     res.status(500).json({
