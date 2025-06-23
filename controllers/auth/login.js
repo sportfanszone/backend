@@ -47,17 +47,16 @@ module.exports = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.USER_TOKEN_SECRET,
-      { expiresIn }
-    );
+    const token = jwt.sign({ user: user }, process.env.USER_TOKEN_SECRET, {
+      expiresIn,
+    });
 
     res.cookie("userToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       expires,
       sameSite: "lax",
+      httpOnly: true,
     });
 
     res.json({ status: "success" });
