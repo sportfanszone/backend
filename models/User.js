@@ -55,6 +55,13 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      coverPhotoUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          notEmpty: true,
+        },
+      },
       lastAccess: {
         type: DataTypes.STRING,
         defaultValue: Date.now(),
