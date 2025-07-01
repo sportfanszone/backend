@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
         {
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
         {
@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
         {
@@ -59,7 +59,7 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
         {
@@ -74,7 +74,7 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
         {
@@ -89,40 +89,40 @@ module.exports = async (req, res) => {
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImage: "/images/blankProfile.png",
+            profileImageUrl: "/images/blankProfile.png",
           },
         },
       ],
       topContributors: [
         {
           id: 1,
-          name: "John",
-          profileImage: "/images/blankProfile.png",
+          firstName: "John",
+          profileImageUrl: "/images/blankProfile.png",
         },
         {
           id: 2,
-          name: "Jane",
-          profileImage: "/images/blankProfile.png",
+          firstName: "Jane",
+          profileImageUrl: "/images/blankProfile.png",
         },
         {
           id: 3,
-          name: "Alice",
-          profileImage: "/images/blankProfile.png",
+          firstName: "Alice",
+          profileImageUrl: "/images/blankProfile.png",
         },
         {
           id: 4,
-          name: "Bob",
-          profileImage: "/images/blankProfile.png",
+          firstName: "Bob",
+          profileImageUrl: "/images/blankProfile.png",
         },
         {
           id: 5,
-          name: "Charlie",
-          profileImage: "/images/blankProfile.png",
+          firstName: "Charlie",
+          profileImageUrl: "/images/blankProfile.png",
         },
         {
           id: 6,
-          name: "Dave",
-          profileImage: "/images/blankProfile.png",
+          firstName: "Dave",
+          profileImageUrl: "/images/blankProfile.png",
         },
       ],
     };

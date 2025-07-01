@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
       leagues: [
         {
           id: 1,
-          leagueName: "Premier League",
+          name: "Premier League",
           topics: 142,
           lastActivity: "Today, 09:14",
           description:
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         },
         {
           id: 2,
-          leagueName: "La Liga",
+          name: "La Liga",
           topics: 95,
           lastActivity: "Yesterday, 22:08",
           description:
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
         },
         {
           id: 3,
-          leagueName: "Bundesliga",
+          name: "Bundesliga",
           topics: 110,
           lastActivity: "Today, 06:45",
           description:
@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
         },
         {
           id: 4,
-          leagueName: "Serie A",
+          name: "Serie A",
           topics: 87,
           lastActivity: "2 days ago, 18:33",
           description:
@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
         },
         {
           id: 5,
-          leagueName: "Ligue 1",
+          name: "Ligue 1",
           topics: 74,
           lastActivity: "Today, 11:01",
           description:
@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
         },
         {
           id: 6,
-          leagueName: "Major League Soccer",
+          name: "Major League Soccer",
           topics: 63,
           lastActivity: "Yesterday, 20:17",
           description:

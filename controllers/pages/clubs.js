@@ -76,7 +76,7 @@ module.exports = async (req, res) => {
 
     const user = {
       username: "username",
-      profileImage: "/images/blankProfile.png",
+      profileImageUrl: "/images/blankProfile.png",
     };
 
     const relatedLeagues = [
