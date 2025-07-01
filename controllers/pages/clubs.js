@@ -3,7 +3,7 @@ module.exports = async (req, res) => {
     const clubs = [
       {
         id: 1,
-        clubName: "Manchester City",
+        name: "Manchester City",
         topicCount: 142,
         lastActivity: "Today, 09:14",
         description:
@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
       },
       {
         id: 2,
-        clubName: "Arsenal",
+        name: "Arsenal",
         topicCount: 95,
         lastActivity: "Yesterday, 22:08",
         description:
@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
       },
       {
         id: 3,
-        clubName: "Liverpool",
+        name: "Liverpool",
         topicCount: 110,
         lastActivity: "Today, 06:45",
         description:
@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       },
       {
         id: 4,
-        clubName: "Chelsea",
+        name: "Chelsea",
         topicCount: 87,
         lastActivity: "2 days ago, 18:33",
         description:
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
       },
       {
         id: 5,
-        clubName: "Manchester United",
+        name: "Manchester United",
         topicCount: 74,
         lastActivity: "Today, 11:01",
         description:
@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
       },
       {
         id: 6,
-        clubName: "Tottenham Hotspur",
+        name: "Tottenham Hotspur",
         topicCount: 63,
         lastActivity: "Yesterday, 20:17",
         description:
