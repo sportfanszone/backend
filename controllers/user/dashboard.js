@@ -22,19 +22,41 @@ module.exports = async (req, res) => {
         lastName: "Umeh",
         profileImageUrl: "/images/blankProfile.png",
       },
+    ];
+
+    const leaguesYouFollow = [
       {
-        id: 4,
-        firstName: "Michael",
-        middleName: "Ifeanyi",
-        lastName: "Ojo",
-        profileImageUrl: "/images/blankProfile.png",
+        id: 1,
+        name: "English Premier League",
+        backgroundImage: "/images/premierLeagueLogo.png",
       },
       {
-        id: 5,
-        firstName: "Fatima",
-        middleName: "Zainab",
-        lastName: "Bello",
-        profileImageUrl: "/images/blankProfile.png",
+        id: 2,
+        name: "La Liga",
+        backgroundImage: "/images/laLigaLogo.png",
+      },
+      {
+        id: 3,
+        name: "Serie A",
+        backgroundImage: "/images/serieALogo.png",
+      },
+    ];
+
+    const clubsYouFollow = [
+      {
+        id: 2,
+        name: "Chelsea",
+        backgroundImage: "/images/chelsea.png",
+      },
+      {
+        id: 1,
+        name: "Manchester United",
+        backgroundImage: "/images/manchesterUnited.png",
+      },
+      {
+        id: 3,
+        name: "Arsenal",
+        backgroundImage: "/images/arsenalLogo.png",
       },
     ];
 
@@ -45,7 +67,12 @@ module.exports = async (req, res) => {
       sameSite: "lax",
     });
 
-    return res.json({ status: "success", profileViews });
+    return res.json({
+      status: "success",
+      profileViews,
+      leaguesYouFollow,
+      clubsYouFollow,
+    });
   } catch (error) {
     console.error("Error in dashboard controller:", error);
     res.status(500).json({
