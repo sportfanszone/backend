@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const passport = require("passport");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 const db = require("./models");
+
+require("./config/passport")(passport);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -29,6 +32,8 @@ app.use(
     credentials: true,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(require("./routes"));
 
 db.sequelize

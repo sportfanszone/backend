@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      googleId: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -20,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       middleName: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
         },
       },
       lastName: {
@@ -51,15 +59,17 @@ module.exports = (sequelize, DataTypes) => {
       profileImageUrl: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: "/images/chelsea.png",
         validate: {
-          notEmpty: true,
+          notEmpty: false,
         },
       },
       coverPhotoUrl: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: "/images/heroBackground.jpg",
         validate: {
-          notEmpty: true,
+          notEmpty: false,
         },
       },
       lastAccess: {
@@ -72,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           notEmpty: true,
         },

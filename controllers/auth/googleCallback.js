@@ -1,23 +1,18 @@
 const jwt = require("jsonwebtoken");
-const passport = require("passport");
 
-module.exports = async (req, res, next) => {
-  console.log("Something happend");
-  passport.authenticate("local", { session: false }, (error, user, info) => {
-    if (error) return next(error);
-    if (!user)
+module.exports = async (req, res) => {
+  try {
+    const user = req.user.toJSON();
+
+    if (!user) {
       return res.status(500).json({
         status: "error",
-        message: info.message,
+        message: "An unexpected error occurred",
       });
+    }
 
     let expiresIn = "2h";
     let expires = new Date(Date.now() + 2 * 60 * 60 * 1000);
-
-    if (req.body.rememberMe && req.body.rememberMe === "on") {
-      expiresIn = "3d";
-      expires = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
-    }
 
     // Generate JWT token
     const token = jwt.sign({ user: user }, process.env.USER_TOKEN_SECRET, {
@@ -30,7 +25,12 @@ module.exports = async (req, res, next) => {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       expires,
     });
-
-    res.json({ status: "success" });
-  })(req, res, next);
+    res.redirect(`${process.env.FRONTEND_URL}/user/dashboard`);
+  } catch (error) {
+    console.error("Error in signup:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "An unexpected error occurred",
+    });
+  }
 };

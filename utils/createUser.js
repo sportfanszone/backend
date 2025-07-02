@@ -7,21 +7,15 @@ module.exports = async (user) => {
       throw new Error("User data is incomplete");
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const password = await bcrypt.hash(user.password, salt);
+    let password;
 
-    // Create user
-    const newUser = await User.create({
-      firstName: user.firstName,
-      middleName: user.middleName,
-      lastName: user.lastName,
-      username: user.username,
-      email: user.email,
-      profileImageUrl: user.profileImageUrl || null,
-      password,
-      lastAccess: Date.now(),
-    });
+    if (user.password) {
+      const salt = await bcrypt.genSalt(10);
+      password = await bcrypt.hash(user.password, salt);
+      user.password = password;
+    }
+
+    const newUser = await User.create({ ...user });
     return { user: newUser, status: "success" };
   } catch (error) {
     console.log("Error in createUser:", error);
