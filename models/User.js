@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       googleId: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
+        allowNull: true,
+        defaultValue: null,
         validate: {
           notEmpty: true,
         },

@@ -35,40 +35,45 @@ module.exports = function (passport) {
       async (accessToken, refreshToken, profile, done) => {
         try {
           console.log(profile);
-          const user = await User.findOne({ where: { googleId: profile.id } });
+          const { id: googleId } = profile;
+          const email = profile.emails?.[0]?.value;
+
+          let user = await User.findOne({ where: { googleId } });
+
           if (!user) {
-            const nameParts = profile.displayName.split(" ");
+            // Then check for user by email
+            user = await User.findOne({ where: { email } });
 
-            const googleId = profile.id;
-            const firstName = nameParts[0] || "Google";
-            const middleName = nameParts[2] ? nameParts[1] : null;
-            const lastName = nameParts[2] || nameParts[1];
-            const profileImageUrl = profile.photos?.[0]?.value;
-
-            const email = profile.emails?.[0]?.value;
-            const username = generateRandomUsername(email);
-
-            console.table({
-              googleId,
-              firstName,
-              middleName,
-              lastName,
-              username,
-              email: profile.emails[0].value,
-              profileImageUrl,
-            });
-
-            const userCreated = await require("../utils/createUser")({
-              googleId,
-              firstName,
-              middleName,
-              lastName,
-              username,
-              email: profile.emails[0].value,
-              profileImageUrl,
-            });
-            return done(null, userCreated.user);
+            if (user) {
+              // ✅ Only attach googleId if it's not already set
+              if (!user.googleId) {
+                user.googleId = googleId;
+                await user.save();
+              } else if (user.googleId !== googleId) {
+                // 🚫 Mismatch: this could be an account hijack attempt
+                return done(
+                  new Error(
+                    "Account already exists with this email under another Google account"
+                  )
+                );
+              }
+            }
           }
+
+          if (!user) {
+            // Create new user
+            const nameParts = profile.displayName.split(" ");
+            user = await createUser({
+              googleId,
+              email,
+              firstName: nameParts[0] || "Google",
+              middleName: nameParts[1] || "",
+              lastName: nameParts[2] || "",
+              username: generateRandomUsername(email),
+              profileImageUrl: profile.photos?.[0]?.value,
+            });
+          }
+
           return done(null, user);
         } catch (error) {
           return done(error);
