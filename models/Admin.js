@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
-    "User",
+  const Admin = sequelize.define(
+    "Admin",
     {
       id: {
         type: DataTypes.UUID,
@@ -72,14 +72,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: false,
         },
       },
-      role: {
-        type: DataTypes.ENUM(["user", "admin"]),
-        allowNull: false,
-        defaultValue: "user",
-        validate: {
-          notEmpty: true,
-        },
-      },
       lastAccess: {
         type: DataTypes.STRING,
         defaultValue: Date.now(),
@@ -100,5 +92,5 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: true,
     }
   );
-  return User;
+  return Admin;
 };

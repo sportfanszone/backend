@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const genToken = require("../../utils/genToken");
 
 module.exports = async (req, res) => {
   try {
@@ -11,13 +12,10 @@ module.exports = async (req, res) => {
       });
     }
 
-    let expiresIn = "2h";
     let expires = new Date(Date.now() + 2 * 60 * 60 * 1000);
 
     // Generate JWT token
-    const token = jwt.sign({ user: user }, process.env.USER_TOKEN_SECRET, {
-      expiresIn,
-    });
+    const token = genToken(user);
 
     res.cookie("userToken", token, {
       httpOnly: true,

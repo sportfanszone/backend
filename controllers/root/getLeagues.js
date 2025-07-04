@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
         {
           id: 1,
           name: "Premier League",
-          topics: 142,
+          clubCount: 142,
           lastActivity: "Today, 09:14",
           description:
             "The most competitive football league in the world, featuring top English clubs.",
@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
         {
           id: 2,
           name: "La Liga",
-          topics: 95,
+          clubCount: 95,
           lastActivity: "Yesterday, 22:08",
           description:
             "Spain’s top-tier league, known for its flair, rivalries, and legendary players.",
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         {
           id: 3,
           name: "Bundesliga",
-          topics: 110,
+          clubCount: 110,
           lastActivity: "Today, 06:45",
           description:
             "Germany’s premier league, combining strong fan culture and attacking football.",
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
         {
           id: 4,
           name: "Serie A",
-          topics: 87,
+          clubCount: 87,
           lastActivity: "2 days ago, 18:33",
           description:
             "Italy’s historic league, home to tactical brilliance and legendary defenders.",
@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
         {
           id: 5,
           name: "Ligue 1",
-          topics: 74,
+          clubCount: 74,
           lastActivity: "Today, 11:01",
           description:
             "France’s top league, spotlighting young talents and dominant PSG performances.",
@@ -55,7 +55,7 @@ module.exports = async (req, res) => {
         {
           id: 6,
           name: "Major League Soccer",
-          topics: 63,
+          clubCount: 63,
           lastActivity: "Yesterday, 20:17",
           description:
             "North America’s growing league, blending global stars and rising talents.",
