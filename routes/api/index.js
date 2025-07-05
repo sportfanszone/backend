@@ -5,6 +5,7 @@ router.use("/auth", require("./auth"));
 router.use("/root", require("./root"));
 router.use("/pages", require("./pages"));
 router.use("/user", require("./user"));
+router.use("/admin", require("./admin"));
 
 router.use((req, res) => {
   res.status(404).json({

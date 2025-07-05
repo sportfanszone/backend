@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImageUrl: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "/images/chelsea.png",
+        defaultValue: "/images/blankProfile.png",
         validate: {
           notEmpty: false,
         },
@@ -76,6 +76,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM(["user", "admin"]),
         allowNull: false,
         defaultValue: "user",
+        validate: {
+          notEmpty: true,
+        },
+      },
+      status: {
+        type: DataTypes.ENUM(["blocked", "active"]),
+        allowNull: false,
+        defaultValue: "active",
         validate: {
           notEmpty: true,
         },
