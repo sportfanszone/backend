@@ -29,6 +29,7 @@ module.exports = async (req, res) => {
 
     return res.json({ status: "success", user });
   } catch (error) {
+    console.error("Error in getUser controller:", error);
     res.status(500).json({
       status: "error",
       message: "An unexpected error occurred",
