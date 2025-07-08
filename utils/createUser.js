@@ -18,7 +18,7 @@ module.exports = async (user) => {
     const newUser = await User.create({ ...user });
     return { user: newUser, status: "success" };
   } catch (error) {
-    console.log("Error in createUser:", error);
+    console.error("Error in createUser:", error);
     throw new Error("Failed to create user");
   }
 };
