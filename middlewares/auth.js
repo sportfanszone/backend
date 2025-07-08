@@ -16,7 +16,7 @@ async function authenticate(req, res, next) {
     req.user = decodedToken?.user;
     next();
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res
       .status(401)
       .json({ status: "error", message: "Invalide token", action: "logout" });
