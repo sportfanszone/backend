@@ -14,11 +14,7 @@ module.exports = async function (req, res, next) {
       return next();
     }
 
-    console.log("User Token:", userToken);
-    console.log("JWT Secret:", process.env.USER_TOKEN_SECRET);
-
     const tokenPayload = jwt.verify(userToken, process.env.USER_TOKEN_SECRET);
-    console.log("tokenPayload: " + tokenPayload);
 
     if (!tokenPayload?.user?.id) {
       console.log("Token payload is invalid.");
@@ -42,8 +38,6 @@ module.exports = async function (req, res, next) {
       sameSite: "lax",
     });
     login(user, res);
-    console.log("Authenticated user:", user);
-    console.log("New token:", user);
 
     return next();
   } catch (error) {
