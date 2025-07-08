@@ -43,11 +43,6 @@ module.exports = async (req, res) => {
       users,
       total: count,
     });
-
-    console.log({
-      users,
-      total: count,
-    });
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ error: "Something went wrong" });
