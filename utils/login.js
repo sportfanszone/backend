@@ -10,8 +10,6 @@ module.exports = (
     expiresIn,
   });
 
-  console.log("New token: ", token);
-
   return res.cookie("userToken", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
