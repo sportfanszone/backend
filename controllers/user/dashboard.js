@@ -60,7 +60,6 @@ module.exports = async (req, res) => {
       },
     ];
 
-    console.log("Hello ");
     res.clearCookie("userToken", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
