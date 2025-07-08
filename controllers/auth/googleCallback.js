@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
 
     res.cookie("userToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true in prod
+      secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       expires,
     });
