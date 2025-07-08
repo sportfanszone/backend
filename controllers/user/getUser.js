@@ -4,7 +4,6 @@ const getAchievements = require("../../utils/getAchievements");
 module.exports = async (req, res) => {
   try {
     const { id } = req?.user;
-    console.log(req.user);
 
     if (!id)
       return res.status(400).json({
@@ -27,7 +26,6 @@ module.exports = async (req, res) => {
     if (achievements) {
       user.dataValues.achievements = achievements;
     }
-    console.log(user);
 
     return res.json({ status: "success", user });
   } catch (error) {
