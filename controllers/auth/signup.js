@@ -2,9 +2,6 @@ const { User } = require("../../models");
 
 module.exports = async (req, res) => {
   try {
-    console.log("My message");
-    console.log(req.body);
-
     // Check if email already is in use
     const emailExists = await User.findOne({
       where: { email: req.body.email },
