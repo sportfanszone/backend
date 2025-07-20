@@ -13,6 +13,8 @@ router.use(
 );
 router.use("/admin", require("./admin"));
 
+router.get("/get_clubs", require("../../controllers/getClubs"));
+
 router.use((req, res) => {
   res.status(404).json({
     status: "error",
