@@ -20,7 +20,6 @@ module.exports = async (id) => {
       ],
     });
 
-    console.log(user);
     return user;
   } catch (error) {
     console.error(error); // helpful for debugging
