@@ -14,6 +14,7 @@ router.use(
 router.use("/admin", require("./admin"));
 
 router.get("/get_clubs", require("../../controllers/getClubs"));
+router.get("/get_leagues", require("../../controllers/getLeagues"));
 
 router.use((req, res) => {
   res.status(404).json({
