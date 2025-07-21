@@ -8,8 +8,8 @@ module.exports = async (id) => {
         {
           model: User,
           as: "Followers",
-          attributes: ["id", "username"], // Include only the fields you need
-          through: { attributes: [] }, // Exclude Follow join table fields
+          attributes: ["id", "username"],
+          through: { attributes: [] },
         },
         {
           model: User,
@@ -22,7 +22,7 @@ module.exports = async (id) => {
 
     return user;
   } catch (error) {
-    console.error(error); // helpful for debugging
+    console.error(error);
     throw new Error("Error getting user with followers and following");
   }
 };
