@@ -1,28 +1,19 @@
 const multer = require("multer");
 const { League } = require("../../models");
-
-const upload = require("../../middlewares/leagueUpload");
-function uploadAsync(req, res) {
-  return new Promise((resolve, reject) => {
-    upload(req, res, (err) => {
-      if (err) reject(err);
-      else resolve();
-    });
-  });
-}
+const { uploadAsync } = require("../../middlewares/leagueUpload");
+const deleteUploadedFiles = require("../../utils/deleteUploadedFiles");
 
 module.exports = async (req, res) => {
   try {
+    // Upload files
     await uploadAsync(req, res);
-
-    console.log(req.body);
-    console.log(req.files);
 
     // Check if name already exists
     const nameExsits = await League.findOne({
       where: { name: req.body.name },
     });
     if (nameExsits) {
+      deleteUploadedFiles(req.files);
       return res.status(400).json({
         status: "error",
         message: "name already in use",
@@ -45,6 +36,7 @@ module.exports = async (req, res) => {
       backgroundImage,
     });
     if (!leagueCreated) {
+      deleteUploadedFiles(req.files);
       return res.status(500).json({
         status: "error",
         message: "Failed to create league",
@@ -58,6 +50,8 @@ module.exports = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in addLeague:", error);
+
+    deleteUploadedFiles(req.files);
 
     if (error instanceof multer.MulterError) {
       if (error.code === "LIMIT_FILE_SIZE") {

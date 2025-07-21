@@ -35,4 +35,13 @@ const upload = multer({ storage, fileFilter }).fields([
   { name: "backgroundImage", maxCount: 1 },
 ]);
 
-module.exports = upload;
+function uploadAsync(req, res) {
+  return new Promise((resolve, reject) => {
+    upload(req, res, (err) => {
+      if (err) reject(err);
+      else resolve();
+    });
+  });
+}
+
+module.exports = { uploadAsync };
