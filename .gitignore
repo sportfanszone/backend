@@ -1,2 +1,5 @@
 node_modules
 .env
+
+public/images/league/*
+!public/images/league/.gitkeep

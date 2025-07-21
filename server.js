@@ -13,6 +13,7 @@ const db = require("./models");
 
 require("./config/passport")(passport);
 
+app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
