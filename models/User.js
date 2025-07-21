@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImageUrl: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "/images/blankProfile.png",
+        // defaultValue: "/images/blankProfile.png",
         validate: {
           notEmpty: false,
         },
