@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lastAccess: {
         type: DataTypes.STRING,
-        defaultValue: Date.now(),
+        defaultValue: DataTypes.NOW,
         allowNull: false,
         validate: {
           notEmpty: true,
