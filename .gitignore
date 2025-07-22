@@ -6,3 +6,6 @@ public/images/league/*
 
 public/images/club/*
 !public/images/club/.gitkeep
+
+public/images/user/*
+!public/images/user/.gitkeep
