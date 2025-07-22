@@ -5,6 +5,7 @@ router.post("/add_user", require("../../controllers/admin/addUser"));
 
 router.post("/add_league", require("../../controllers/admin/addLeague"));
 
+router.get("/all_clubs", require("../../controllers/admin/allClubs"));
 router.post("/add_club", require("../../controllers/admin/addClub"));
 
 module.exports = router;
