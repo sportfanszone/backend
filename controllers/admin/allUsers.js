@@ -11,6 +11,7 @@ module.exports = async (req, res) => {
       ? {
           [Op.or]: [
             { firstName: { [Op.substring]: search } },
+            { middleName: { [Op.substring]: search } },
             { lastName: { [Op.substring]: search } },
             { username: { [Op.substring]: search } },
             { email: { [Op.substring]: search } },
@@ -28,12 +29,14 @@ module.exports = async (req, res) => {
       attributes: [
         "id",
         "firstName",
+        "middleName",
         "lastName",
         "username",
         "email",
         "status",
         "role",
         "profileImageUrl",
+        "coverPhotoUrl",
         "createdAt",
         "lastAccess",
       ],
