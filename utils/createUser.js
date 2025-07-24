@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 const { User } = require("../models");
 
 module.exports = async (user) => {
@@ -7,13 +6,8 @@ module.exports = async (user) => {
       throw new Error("User data is incomplete");
     }
 
-    let password;
-
-    if (user.password) {
-      const salt = await bcrypt.genSalt(10);
-      password = await bcrypt.hash(user.password, salt);
-      user.password = password;
-    }
+    if (user.password)
+      user.password = await require("./hashPassword")(user.password);
 
     const newUser = await User.create({ ...user });
     return { user: newUser, status: "success" };
