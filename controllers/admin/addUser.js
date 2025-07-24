@@ -4,9 +4,8 @@ const { uploadAsync } = require("../../middlewares/userUpload");
 const deleteUploadedFiles = require("../../utils/deleteUploadedFiles");
 
 module.exports = async (req, res) => {
+  const filePath = path.join(process.cwd(), "public", "images", "user");
   try {
-    const filePath = path.join(process.cwd(), "public", "images", "user");
-
     await uploadAsync(req, res);
 
     // Check if email already is in use
@@ -61,9 +60,8 @@ module.exports = async (req, res) => {
       message: "OTP verified successfully",
     });
   } catch (error) {
-    console.error("Error in signup:", error);
-
     deleteUploadedFiles(req.files, filePath);
+    console.error("Error in addUser:", error);
 
     if (error instanceof multer.MulterError) {
       if (error.code === "LIMIT_FILE_SIZE") {
