@@ -5,9 +5,9 @@ const deleteUploadedFiles = require("../../utils/deleteUploadedFiles");
 const deleteUserImageIfLocal = require("../../utils/deleteUserImageIfLocal");
 
 module.exports = async (req, res) => {
+  const filePath = path.join(process.cwd(), "public", "images", "user");
   try {
     const userId = req.params.id;
-    const filePath = path.join(process.cwd(), "public", "images", "user");
 
     await uploadAsync(req, res);
 
