@@ -15,6 +15,7 @@ router.post("/delete_user/:id", require("../../controllers/admin/deleteUser"));
 
 router.get("/all_leagues", require("../../controllers/admin/allLeagues"));
 router.post("/add_league", require("../../controllers/admin/addLeague"));
+router.post("/edit_league/:id", require("../../controllers/admin/editLeague"));
 
 router.get("/all_clubs", require("../../controllers/admin/allClubs"));
 router.post("/add_club", require("../../controllers/admin/addClub"));
