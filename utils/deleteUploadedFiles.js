@@ -3,6 +3,7 @@ const path = require("path");
 
 module.exports = function deleteUploadedFiles(files, baseDir) {
   if (!files) return;
+  if (!baseDir) return;
 
   Object.values(files).forEach((fileArray) => {
     fileArray.forEach((file) => {
