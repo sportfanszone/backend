@@ -11,6 +11,7 @@ router.post(
   "/toggle_user_status/:id",
   require("../../controllers/admin/toggleUserStatus")
 );
+router.post("/delete_user/:id", require("../../controllers/admin/deleteUser"));
 
 router.get("/all_leagues", require("../../controllers/admin/allLeagues"));
 router.post("/add_league", require("../../controllers/admin/addLeague"));
