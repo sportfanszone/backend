@@ -56,11 +56,11 @@ module.exports = async (req, res) => {
         message: "Failed to create league",
       });
     }
-    console.log("League deleted successfully:", leagueUpdated);
+    console.log("League edited successfully:", leagueUpdated);
 
     return res.json({
       status: "success",
-      message: "League deleted successfully",
+      message: "League edited successfully",
     });
   } catch (error) {
     console.error("Error in editLeague:", error);
