@@ -32,5 +32,6 @@ router.post(
   "/toggle_pinned_club/:id",
   require("../../controllers/admin/togglePinnedClub")
 );
+router.post("/delete_club/:id", require("../../controllers/admin/deleteClub"));
 
 module.exports = router;
