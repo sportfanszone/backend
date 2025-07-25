@@ -1,5 +1,5 @@
 const router = require("express").Router();
 
-router.get("/getLeagues", require("../../controllers/root/getLeagues"));
+router.get("/get_leagues", require("../../controllers/root/getLeagues"));
 
 module.exports = router;
