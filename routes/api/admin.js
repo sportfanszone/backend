@@ -20,6 +20,10 @@ router.post(
   "/toggle_pinned_league/:id",
   require("../../controllers/admin/togglePinnedLeague")
 );
+router.post(
+  "/delete_league/:id",
+  require("../../controllers/admin/deleteLeague")
+);
 
 router.get("/all_clubs", require("../../controllers/admin/allClubs"));
 router.post("/add_club", require("../../controllers/admin/addClub"));
