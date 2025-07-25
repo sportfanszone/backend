@@ -11,10 +11,10 @@ module.exports = async (req, res) => {
     await uploadAsync(req, res);
 
     // Check if name already exists
-    const nameExsits = await League.findOne({
+    const league = await League.findOne({
       where: { name: req.body.name },
     });
-    if (nameExsits) {
+    if (league) {
       deleteUploadedFiles(req.files, filePath);
       return res.status(400).json({
         status: "error",
