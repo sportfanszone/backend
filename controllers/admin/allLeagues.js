@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
         "backgroundImage",
         "lastAccess",
         "createdAt",
+        "pinned",
       ],
     });
 
