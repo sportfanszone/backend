@@ -48,8 +48,8 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lastAccess: {
-        type: DataTypes.STRING,
-        defaultValue: Date.now(),
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
         allowNull: false,
         validate: {
           notEmpty: true,
