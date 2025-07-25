@@ -28,5 +28,9 @@ router.post(
 router.get("/all_clubs", require("../../controllers/admin/allClubs"));
 router.post("/add_club", require("../../controllers/admin/addClub"));
 router.post("/edit_club/:id", require("../../controllers/admin/editClub"));
+router.post(
+  "/toggle_pinned_club/:id",
+  require("../../controllers/admin/togglePinnedClub")
+);
 
 module.exports = router;
