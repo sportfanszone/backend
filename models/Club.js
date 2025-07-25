@@ -39,6 +39,14 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      pinned: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+        validate: {
+          notEmpty: true,
+        },
+      },
       lastAccess: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
