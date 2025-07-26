@@ -13,10 +13,11 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
-            profileImageUrl: "/images/blankProfile.png",
+            profileImageUrl: "/images/sblankProfile.png",
           },
         },
         {
@@ -27,6 +28,7 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
@@ -41,6 +43,7 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
@@ -56,6 +59,7 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
@@ -71,6 +75,7 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
@@ -86,6 +91,7 @@ module.exports = async (req, res) => {
           upVotes: 20,
           createdAt: "10:02AM",
           user: {
+            username: "johndoe",
             firstName: "John",
             middleName: "Doe",
             lastName: "Nna",
