@@ -4,9 +4,6 @@ module.exports = async (req, res) => {
   try {
     const leagues = await getLeagues();
 
-    console.log("Leagues:");
-    console.log(leagues);
-
     res.json({
       leagues,
       status: "success",
