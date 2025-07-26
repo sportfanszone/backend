@@ -44,8 +44,8 @@ db.Club.hasMany(db.User);
 db.ActivityLog.belongsTo(db.User);
 db.User.hasMany(db.ActivityLog);
 
-db.Club.belongsTo(db.League);
-db.League.hasMany(db.Club);
+db.Club.belongsTo(db.League, { foreignKey: "LeagueId" });
+db.League.hasMany(db.Club, { as: "Clubs", foreignKey: "LeagueId" });
 
 db.User.belongsToMany(db.User, {
   as: "Following",
@@ -63,15 +63,15 @@ db.User.belongsToMany(db.User, {
 
 db.User.hasMany(db.Post, {
   foreignKey: "UserId",
-  as: "posts",
+  as: "Posts",
 });
 db.Post.belongsTo(db.Club, {
   foreignKey: "ClubId",
-  as: "club",
+  as: "Club",
 });
 db.Club.hasMany(db.Post, {
   foreignKey: "ClubId",
-  as: "posts",
+  as: "Posts",
 });
 db.Post.hasMany(db.PostFile, {
   onDelete: "CASCADE",

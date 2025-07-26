@@ -1,26 +1,25 @@
 const { League, Club } = require("../models");
-const { fn, col, literal } = require("sequelize");
+const { fn, col } = require("sequelize");
 
-module.exports = async () => {
+module.exports = async (id) => {
   try {
-    const leagues = await League.findAll({
-      where: { pinned: true },
+    const leagues = await League.findOne({
+      where: { id },
       attributes: {
         include: [[fn("COUNT", col("Clubs.id")), "clubCount"]],
       },
       include: [
         {
           model: Club,
-          as: "Clubs",
           attributes: [],
+          as: "Clubs",
         },
       ],
       group: ["League.id"],
-      order: [[literal("clubCount"), "DESC"]],
     });
 
     return leagues;
   } catch (error) {
-    throw new Error(error.message || "Failed to fetch pinned leagues");
+    throw new Error(error);
   }
 };
