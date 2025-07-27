@@ -27,7 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     ClubId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       validate: {
         notEmpty: true,
@@ -35,7 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     UserId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       validate: {
         notEmpty: true,

@@ -9,3 +9,6 @@ public/images/club/*
 
 public/images/user/*
 !public/images/user/.gitkeep
+
+public/images/post/*
+!public/images/post/.gitkeep
