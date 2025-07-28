@@ -65,6 +65,7 @@ db.User.hasMany(db.Post, {
   foreignKey: "UserId",
   as: "Posts",
 });
+db.Post.belongsTo(db.User, { foreignKey: "UserId", as: "User" });
 db.Post.belongsTo(db.Club, {
   foreignKey: "ClubId",
   as: "Club",

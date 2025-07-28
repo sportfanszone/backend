@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         isUrl: true,
       },
     },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     ClubId: {
       type: DataTypes.UUID,
       allowNull: false,
