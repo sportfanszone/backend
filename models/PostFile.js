@@ -1,4 +1,3 @@
-// models/PostFile.js
 module.exports = (sequelize, DataTypes) => {
   const PostFile = sequelize.define("PostFile", {
     id: {
