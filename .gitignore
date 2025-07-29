@@ -12,3 +12,9 @@ public/images/user/*
 
 public/images/post/*
 !public/images/post/.gitkeep
+
+public/images/comment/*
+!public/images/comment/.gitkeep
+
+public/audios/comment/*
+!public/audios/comment/.gitkeep
