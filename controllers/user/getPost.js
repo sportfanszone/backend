@@ -32,19 +32,19 @@ module.exports = async (req, res) => {
         },
         {
           model: PostFile,
-          where: { type: "image" }, // Only include image files
+          where: { type: "image" },
           required: false,
           attributes: ["url"],
         },
         {
           model: Comment,
           as: "Comments",
-          attributes: [], // For counting only
+          attributes: [],
           required: false,
         },
       ],
       attributes: ["id", "title", "content", "createdAt", "likes"],
-      group: ["Post.id", "User.id", "PostFiles.id"], // Group to avoid duplicate rows
+      group: ["Post.id", "User.id", "PostFiles.id"],
     });
 
     console.log(post);
@@ -64,7 +64,7 @@ module.exports = async (req, res) => {
       content: post.content,
       images: post.PostFiles ? post.PostFiles.map((file) => file.url) : [],
       likes: post.likes || 0,
-      shares: 0, // No Share model or field, default to 0
+      shares: 0,
       commentCount: await Comment.count({ where: { PostId: post.id } }),
       user: post.User
         ? {
