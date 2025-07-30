@@ -14,12 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: { isUrl: true },
+      validate: {
+        notEmpty: false,
+      },
     },
     audioUrl: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: { isUrl: true },
+      validate: {
+        notEmpty: false,
+      },
     },
     PostId: {
       type: DataTypes.UUID,
