@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
+    shares: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     ClubId: {
       type: DataTypes.UUID,
       allowNull: false,
