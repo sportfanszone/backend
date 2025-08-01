@@ -9,6 +9,7 @@ const Follow = require("./Follow");
 const Post = require("./Post");
 const PostFile = require("./PostFile");
 const Comment = require("./Comment");
+const UserLikes = require("./UserLikes");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -38,6 +39,7 @@ db.Follow = Follow(sequelize, DataTypes);
 db.Post = Post(sequelize, DataTypes);
 db.PostFile = PostFile(sequelize, DataTypes);
 db.Comment = Comment(sequelize, DataTypes);
+db.UserLikes = UserLikes(sequelize, DataTypes);
 
 // Associations
 db.User.belongsTo(db.Club);
@@ -95,5 +97,14 @@ db.Comment.hasMany(db.Comment, {
   foreignKey: "ParentCommentId",
   as: "Replies",
 });
+
+db.User.hasMany(db.UserLikes, { foreignKey: "userId", as: "UserLikes" });
+db.UserLikes.belongsTo(db.User, { foreignKey: "userId", as: "User" });
+
+db.Post.hasMany(db.UserLikes, { foreignKey: "PostId", as: "UserLikes" });
+db.UserLikes.belongsTo(db.Post, { foreignKey: "PostId", as: "Post" });
+
+db.Comment.hasMany(db.UserLikes, { foreignKey: "CommentId", as: "UserLikes" });
+db.UserLikes.belongsTo(db.Comment, { foreignKey: "CommentId", as: "Comment" });
 
 module.exports = db;

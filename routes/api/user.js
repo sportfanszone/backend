@@ -10,10 +10,11 @@ router.get(
   require("../../controllers/user/getUserPosts")
 );
 router.get("/get_posts", require("../../controllers/user/getPosts"));
-
 router.get(
   "/get_comment/:postId",
   require("../../controllers/user/getComment")
 );
+
+router.post("/create_like", require("../../controllers/user/createLike"));
 
 module.exports = router;
