@@ -24,6 +24,5 @@ module.exports = (sequelize, DataTypes) => {
       references: { model: "Comments", key: "id" },
     },
   });
-
   return UserLikes;
 };
