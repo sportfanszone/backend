@@ -1,11 +1,10 @@
-require("dotenv").config();
-const { Post, PostFile, User, Comment } = require("../../models");
+const { Post, PostFile, User, Comment, UserLikes } = require("../../models");
 const { validate: uuidValidate } = require("uuid");
 
 module.exports = async (req, res) => {
   try {
     const { postId } = req.params;
-    console.log(req.params);
+    const userId = req.user.id; // Assumes auth middleware sets req.user
 
     // Validate postId
     if (!postId || !uuidValidate(postId)) {
@@ -14,8 +13,6 @@ module.exports = async (req, res) => {
         message: "Invalid post ID format",
       });
     }
-
-    console.log("---Reached here");
 
     // Fetch post with associated data
     const post = await Post.findByPk(postId, {
@@ -48,14 +45,18 @@ module.exports = async (req, res) => {
       group: ["Post.id", "User.id", "PostFiles.id"],
     });
 
-    console.log(post);
-
     if (!post) {
       return res.status(400).json({
         status: "error",
         message: "Post not found",
       });
     }
+
+    // Check if the current user has liked the post
+    const userLike = await UserLikes.findOne({
+      where: { userId, PostId: postId },
+    });
+    const likedByUser = !!userLike;
 
     // Count all comments and replies for the post
     const countAllComments = async (postId) => {
@@ -109,6 +110,7 @@ module.exports = async (req, res) => {
       likes: post.likes || 0,
       shares: 0,
       commentCount: await countAllComments(post.id),
+      likedByUser, // Add whether the current user liked the post
       user: post.User
         ? {
             firstName: post.User.firstName,
