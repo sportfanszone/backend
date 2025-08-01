@@ -25,6 +25,22 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    shares: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
     PostId: {
       type: DataTypes.UUID,
       allowNull: true,
