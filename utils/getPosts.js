@@ -1,4 +1,4 @@
-const { Post, PostFile, User, Comment } = require("../models");
+const { Post, PostFile, User, Comment, UserLikes } = require("../models");
 const { validate: uuidValidate } = require("uuid");
 
 const getAllPosts = async (options = {}) => {
@@ -6,7 +6,8 @@ const getAllPosts = async (options = {}) => {
     // Default options
     const {
       clubId,
-      userId,
+      userId, // Authenticated user ID to check likes
+      targetUserId, // Renamed from userId to avoid confusion
       sortBy = "createdAt",
       sortOrder = "DESC",
       limit = 10,
@@ -17,8 +18,11 @@ const getAllPosts = async (options = {}) => {
     if (clubId && !uuidValidate(clubId)) {
       throw new Error("Invalid Club ID format");
     }
+    if (targetUserId && !uuidValidate(targetUserId)) {
+      throw new Error("Invalid Target User ID format");
+    }
     if (userId && !uuidValidate(userId)) {
-      throw new Error("Invalid User ID format");
+      throw new Error("Invalid Authenticated User ID format");
     }
 
     // Validate sortBy and sortOrder
@@ -38,7 +42,7 @@ const getAllPosts = async (options = {}) => {
     // Build where clause
     const where = {};
     if (clubId) where.ClubId = clubId;
-    if (userId) where.UserId = userId;
+    if (targetUserId) where.UserId = targetUserId;
 
     // Fetch posts
     const posts = await Post.findAll({
@@ -74,6 +78,20 @@ const getAllPosts = async (options = {}) => {
       offset: parseInt(offset),
     });
 
+    // Fetch user likes for all posts if userId is provided
+    let userLikes = [];
+    if (userId) {
+      const postIds = posts.map((post) => post.id);
+      userLikes = await UserLikes.findAll({
+        where: {
+          userId,
+          PostId: postIds,
+        },
+        attributes: ["PostId"],
+      });
+    }
+    const likedPostIds = new Set(userLikes.map((like) => like.PostId));
+
     // Format posts
     const formattedPosts = await Promise.all(
       posts.map(async (post) => ({
@@ -81,10 +99,19 @@ const getAllPosts = async (options = {}) => {
         createdAt: post.createdAt,
         title: post.title,
         content: post.content,
-        images: post.PostFiles ? post.PostFiles.map((file) => file.url) : [],
+        images: post.PostFiles
+          ? post.PostFiles.map((file) =>
+              file.url.startsWith("http")
+                ? file.url
+                : `${process.env.BACKEND_URL || "http://localhost:3001"}${
+                    file.url
+                  }`
+            )
+          : [],
         likes: post.likes || 0,
-        shares: 0, // No Share model or field
+        shares: 0,
         commentCount: await Comment.count({ where: { PostId: post.id } }),
+        likedByUser: userId ? likedPostIds.has(post.id) : false, // Check if user liked the post
         user: post.User
           ? {
               firstName: post.User.firstName,
@@ -101,7 +128,7 @@ const getAllPosts = async (options = {}) => {
       status: "success",
       message: "Posts retrieved successfully",
       posts: formattedPosts,
-      total: await Post.count({ where }), // Total posts for pagination
+      total: await Post.count({ where }),
     };
   } catch (error) {
     console.error("Error in getAllPosts:", error);
