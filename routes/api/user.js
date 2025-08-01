@@ -11,4 +11,9 @@ router.get(
 );
 router.get("/get_posts", require("../../controllers/user/getPosts"));
 
+router.get(
+  "/get_comment/:postId",
+  require("../../controllers/user/getComment")
+);
+
 module.exports = router;
