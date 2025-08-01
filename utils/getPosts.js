@@ -6,8 +6,8 @@ const getAllPosts = async (options = {}) => {
     // Default options
     const {
       clubId,
-      userId, // Authenticated user ID to check likes
-      targetUserId, // Renamed from userId to avoid confusion
+      userId,
+      targetUserId,
       sortBy = "createdAt",
       sortOrder = "DESC",
       limit = 10,
@@ -111,7 +111,7 @@ const getAllPosts = async (options = {}) => {
         likes: post.likes || 0,
         shares: 0,
         commentCount: await Comment.count({ where: { PostId: post.id } }),
-        likedByUser: userId ? likedPostIds.has(post.id) : false, // Check if user liked the post
+        likedByUser: userId ? likedPostIds.has(post.id) : false,
         user: post.User
           ? {
               firstName: post.User.firstName,
@@ -124,12 +124,7 @@ const getAllPosts = async (options = {}) => {
       }))
     );
 
-    return {
-      status: "success",
-      message: "Posts retrieved successfully",
-      posts: formattedPosts,
-      total: await Post.count({ where }),
-    };
+    return formattedPosts;
   } catch (error) {
     console.error("Error in getAllPosts:", error);
     throw new Error(error.message || "An unexpected error occurred");

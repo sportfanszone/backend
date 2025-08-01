@@ -26,7 +26,6 @@ module.exports = async function getPostsWithUser(options = {}) {
       title: post.title,
       likes: post.likes,
       comments: post.comments,
-      upVotes: post.upVotes,
       createdAt: post.createdAt,
       user: post.User
         ? {
@@ -36,7 +35,7 @@ module.exports = async function getPostsWithUser(options = {}) {
             lastName: post.User.lastName,
             profileImageUrl: post.User.profileImageUrl,
           }
-        : [],
+        : {},
     }));
   } catch (error) {
     console.error("Error fetching posts with user:", error);
