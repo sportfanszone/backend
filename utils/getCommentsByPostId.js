@@ -1,13 +1,20 @@
-const { Comment, User } = require("../models");
+const { Comment, User, UserLikes } = require("../models");
+const { validate: uuidValidate } = require("uuid");
 
-const getCommentsByPostId = async (postId, maxDepth = 5) => {
+const getCommentsByPostId = async (postId, userId = null, maxDepth = 5) => {
   try {
-    // Validate PostId
-    if (!postId || typeof postId !== "string") {
+    // Validate PostId and userId
+    if (!postId || !uuidValidate(postId)) {
       throw new Error("Invalid PostId");
+    }
+    if (userId && !uuidValidate(userId)) {
+      throw new Error("Invalid UserId");
     }
 
     const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+    // Collect all comment IDs to query UserLikes
+    const allCommentIds = [];
 
     // Recursive function to count all replies (including nested) for a comment
     const countAllReplies = async (parentCommentId) => {
@@ -17,6 +24,7 @@ const getCommentsByPostId = async (postId, maxDepth = 5) => {
       });
       let count = replies.length;
       for (const reply of replies) {
+        allCommentIds.push(reply.id); // Collect reply IDs
         count += await countAllReplies(reply.id); // Recurse for nested replies
       }
       return count;
@@ -71,6 +79,7 @@ const getCommentsByPostId = async (postId, maxDepth = 5) => {
       // Map comments to desired format
       const formattedComments = await Promise.all(
         comments.map(async (comment) => {
+          allCommentIds.push(comment.id); // Collect comment ID
           // Count all replies (including nested)
           const replyCount = await countAllReplies(comment.id);
 
@@ -124,8 +133,34 @@ const getCommentsByPostId = async (postId, maxDepth = 5) => {
       return formattedComments;
     };
 
+    // Fetch comments
     const comments = await fetchComments();
-    return comments;
+
+    // Fetch user likes for all comments if userId is provided
+    let userLikes = [];
+    if (userId && allCommentIds.length > 0) {
+      userLikes = await UserLikes.findAll({
+        where: {
+          userId,
+          CommentId: allCommentIds,
+        },
+        attributes: ["CommentId"],
+      });
+    }
+    const likedCommentIds = new Set(userLikes.map((like) => like.CommentId));
+
+    // Add likedByUser to each comment and its replies
+    const addLikedByUser = (comments) => {
+      return comments.map((comment) => ({
+        ...comment,
+        likedByUser: userId ? likedCommentIds.has(comment.id) : false,
+        replies: addLikedByUser(comment.replies),
+      }));
+    };
+
+    const formattedCommentsWithLikes = addLikedByUser(comments);
+
+    return formattedCommentsWithLikes;
   } catch (error) {
     console.error("Error fetching comments:", error);
     throw new Error("Failed to fetch comments");
