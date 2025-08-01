@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { Comment, User } = require("../models");
 
 const getCommentsByPostId = async (postId, maxDepth = 5) => {
@@ -9,6 +8,19 @@ const getCommentsByPostId = async (postId, maxDepth = 5) => {
     }
 
     const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+    // Recursive function to count all replies (including nested) for a comment
+    const countAllReplies = async (parentCommentId) => {
+      const replies = await Comment.findAll({
+        where: { ParentCommentId: parentCommentId },
+        attributes: ["id"],
+      });
+      let count = replies.length;
+      for (const reply of replies) {
+        count += await countAllReplies(reply.id); // Recurse for nested replies
+      }
+      return count;
+    };
 
     // Recursive function to fetch comments and their replies
     const fetchComments = async (parentCommentId = null, depth = 0) => {
@@ -59,9 +71,8 @@ const getCommentsByPostId = async (postId, maxDepth = 5) => {
       // Map comments to desired format
       const formattedComments = await Promise.all(
         comments.map(async (comment) => {
-          const replyCount = await Comment.count({
-            where: { ParentCommentId: comment.id },
-          });
+          // Count all replies (including nested)
+          const replyCount = await countAllReplies(comment.id);
 
           const replies = await fetchComments(comment.id, depth + 1);
 
