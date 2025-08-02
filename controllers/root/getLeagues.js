@@ -2,7 +2,8 @@ const getLeagues = require("../../utils/getLeagues");
 
 module.exports = async (req, res) => {
   try {
-    const leagues = await getLeagues();
+    const pinned = req.query?.pinned === "true" ? true : false;
+    const leagues = await getLeagues(pinned);
 
     res.json({
       leagues,

@@ -1,10 +1,10 @@
 const { League, Club } = require("../models");
 const { fn, col, literal } = require("sequelize");
 
-module.exports = async () => {
+module.exports = async (pinned = false) => {
   try {
     const leagues = await League.findAll({
-      where: { pinned: true },
+      where: pinned ? { pinned: true } : {},
       attributes: {
         include: [[fn("COUNT", col("Clubs.id")), "clubCount"]],
       },
