@@ -30,7 +30,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// DBs
+// Initialize models
 db.User = User(sequelize, DataTypes);
 db.League = League(sequelize, DataTypes);
 db.Club = Club(sequelize, DataTypes);
@@ -41,21 +41,29 @@ db.PostFile = PostFile(sequelize, DataTypes);
 db.Comment = Comment(sequelize, DataTypes);
 db.UserLikes = UserLikes(sequelize, DataTypes);
 
-// Associations
-db.User.belongsTo(db.Club);
-db.Club.hasMany(db.User);
+// Associations with CASCADE where appropriate
+db.User.belongsTo(db.Club, { foreignKey: "ClubId", onDelete: "SET NULL" });
+db.Club.hasMany(db.User, { foreignKey: "ClubId", onDelete: "CASCADE" });
 
-db.ActivityLog.belongsTo(db.User);
-db.User.hasMany(db.ActivityLog);
+db.ActivityLog.belongsTo(db.User, {
+  foreignKey: "UserId",
+  onDelete: "CASCADE",
+});
+db.User.hasMany(db.ActivityLog, { foreignKey: "UserId", onDelete: "CASCADE" });
 
-db.Club.belongsTo(db.League, { foreignKey: "LeagueId" });
-db.League.hasMany(db.Club, { as: "Clubs", foreignKey: "LeagueId" });
+db.Club.belongsTo(db.League, { foreignKey: "LeagueId", onDelete: "SET NULL" });
+db.League.hasMany(db.Club, {
+  as: "Clubs",
+  foreignKey: "LeagueId",
+  onDelete: "CASCADE",
+});
 
 db.User.belongsToMany(db.User, {
   as: "Following",
   through: db.Follow,
   foreignKey: "followerId",
   otherKey: "followingId",
+  onDelete: "CASCADE",
 });
 
 db.User.belongsToMany(db.User, {
@@ -63,48 +71,102 @@ db.User.belongsToMany(db.User, {
   through: db.Follow,
   foreignKey: "followingId",
   otherKey: "followerId",
+  onDelete: "CASCADE",
 });
 
 db.User.hasMany(db.Post, {
   foreignKey: "UserId",
   as: "Posts",
+  onDelete: "CASCADE",
 });
-db.Post.belongsTo(db.User, { foreignKey: "UserId", as: "User" });
+db.Post.belongsTo(db.User, {
+  foreignKey: "UserId",
+  as: "User",
+  onDelete: "CASCADE",
+});
+
 db.Post.belongsTo(db.Club, {
   foreignKey: "ClubId",
   as: "Club",
+  onDelete: "SET NULL",
 });
 db.Club.hasMany(db.Post, {
   foreignKey: "ClubId",
   as: "Posts",
-});
-db.Post.hasMany(db.PostFile, {
   onDelete: "CASCADE",
 });
-db.PostFile.belongsTo(db.Post);
 
-db.Comment.belongsTo(db.User, { foreignKey: "UserId", as: "User" });
-db.User.hasMany(db.Comment, { foreignKey: "UserId", as: "Comments" });
+db.Post.hasMany(db.PostFile, {
+  foreignKey: "PostId",
+  as: "PostFiles",
+  onDelete: "CASCADE",
+});
+db.PostFile.belongsTo(db.Post, { foreignKey: "PostId", onDelete: "CASCADE" });
 
-db.Comment.belongsTo(db.Post, { foreignKey: "PostId", as: "Post" });
-db.Post.hasMany(db.Comment, { foreignKey: "PostId", as: "Comments" });
+db.Comment.belongsTo(db.User, {
+  foreignKey: "UserId",
+  as: "User",
+  onDelete: "CASCADE",
+});
+db.User.hasMany(db.Comment, {
+  foreignKey: "UserId",
+  as: "Comments",
+  onDelete: "CASCADE",
+});
+
+db.Comment.belongsTo(db.Post, {
+  foreignKey: "PostId",
+  as: "Post",
+  onDelete: "CASCADE",
+});
+db.Post.hasMany(db.Comment, {
+  foreignKey: "PostId",
+  as: "Comments",
+  onDelete: "CASCADE",
+});
 
 db.Comment.belongsTo(db.Comment, {
   foreignKey: "ParentCommentId",
   as: "Parent",
+  onDelete: "CASCADE",
 });
 db.Comment.hasMany(db.Comment, {
   foreignKey: "ParentCommentId",
   as: "Replies",
+  onDelete: "CASCADE",
 });
 
-db.User.hasMany(db.UserLikes, { foreignKey: "userId", as: "UserLikes" });
-db.UserLikes.belongsTo(db.User, { foreignKey: "userId", as: "User" });
+db.User.hasMany(db.UserLikes, {
+  foreignKey: "userId",
+  as: "UserLikes",
+  onDelete: "CASCADE",
+});
+db.UserLikes.belongsTo(db.User, {
+  foreignKey: "userId",
+  as: "User",
+  onDelete: "CASCADE",
+});
 
-db.Post.hasMany(db.UserLikes, { foreignKey: "PostId", as: "UserLikes" });
-db.UserLikes.belongsTo(db.Post, { foreignKey: "PostId", as: "Post" });
+db.Post.hasMany(db.UserLikes, {
+  foreignKey: "PostId",
+  as: "UserLikes",
+  onDelete: "CASCADE",
+});
+db.UserLikes.belongsTo(db.Post, {
+  foreignKey: "PostId",
+  as: "Post",
+  onDelete: "CASCADE",
+});
 
-db.Comment.hasMany(db.UserLikes, { foreignKey: "CommentId", as: "UserLikes" });
-db.UserLikes.belongsTo(db.Comment, { foreignKey: "CommentId", as: "Comment" });
+db.Comment.hasMany(db.UserLikes, {
+  foreignKey: "CommentId",
+  as: "UserLikes",
+  onDelete: "CASCADE",
+});
+db.UserLikes.belongsTo(db.Comment, {
+  foreignKey: "CommentId",
+  as: "Comment",
+  onDelete: "CASCADE",
+});
 
 module.exports = db;

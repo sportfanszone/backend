@@ -43,9 +43,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     ClubId: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       validate: {
-        notEmpty: true,
+        notEmpty: false,
       },
     },
     UserId: {

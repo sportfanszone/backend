@@ -64,6 +64,7 @@ const getAllPosts = async (options = {}) => {
           where: { type: "image" },
           required: false,
           attributes: ["url"],
+          as: "PostFiles",
         },
         {
           model: Comment,

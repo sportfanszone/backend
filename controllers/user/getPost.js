@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
           where: { type: "image" },
           required: false,
           attributes: ["url"],
+          as: "PostFiles",
         },
         {
           model: Comment,
