@@ -27,12 +27,16 @@ module.exports = async (req, res) => {
     }
 
     // Generate OTP
-    const otp = require("../../utils/genOtp")();
-    req.session.otp = otp;
+    const otpCode = require("../../utils/genOtp")();
+    req.session.otp = otpCode;
     req.session.user = req.body;
     req.session.otpExpires = Date.now() + 3 * 60 * 1000;
 
-    console.log("Generated Otp: " + otp);
+    await require("../../utils/mails/signupOtp.mail")({
+      user: req.body,
+      otpCode,
+    });
+    console.log("Generated Otp: " + otpCode);
 
     res.cookie("allowOtp", "true", {
       httpOnly: true,
