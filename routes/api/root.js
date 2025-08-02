@@ -5,5 +5,9 @@ router.get(
   "/get_top_conversations",
   require("../../controllers/root/getTopConversations")
 );
+router.get(
+  "/get_trending_posts",
+  require("../../controllers/root/getTrendingPosts")
+);
 
 module.exports = router;
