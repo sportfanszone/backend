@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
       status: "success",
     });
   } catch (error) {
-    console.error("Error in getLeagues controller:", error);
+    console.error("Error in getTrendingPosts controller:", error);
     res.status(500).json({
       status: "error",
       message: "An unexpected error occurred",
