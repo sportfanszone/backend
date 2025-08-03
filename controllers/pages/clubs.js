@@ -10,7 +10,10 @@ module.exports = async (req, res) => {
 
     const league = await getLeague(leagueId);
 
-    const relatedLeagues = await League.findAll({ limit: 2 });
+    const relatedLeagues = await require("../../utils/getLeagues")({
+      limit: 3,
+      excludeLeagueIds: [leagueId],
+    });
 
     res.json({
       status: "success",
