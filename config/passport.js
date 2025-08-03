@@ -7,8 +7,8 @@ const createUser = require("../utils/createUser");
 
 // Centralized error messages
 const ERROR_MESSAGES = {
-  USER_NOT_FOUND: "User not found",
-  INCORRECT_PASSWORD: "Incorrect password",
+  USER_NOT_FOUND: "Email or password is not correct",
+  INCORRECT_PASSWORD: "Email or password is not correct",
   ACCOUNT_CONFLICT:
     "Account already exists with this email under another Google account",
   SERVER_ERROR: "Internal server error",
