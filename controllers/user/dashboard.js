@@ -8,23 +8,7 @@ module.exports = async (req, res) => {
       limit: 3,
     });
 
-    const clubsYouFollow = [
-      {
-        id: 2,
-        name: "Chelsea",
-        backgroundImage: "/images/chelsea.png",
-      },
-      {
-        id: 1,
-        name: "Manchester United",
-        backgroundImage: "/images/manchesterUnited.png",
-      },
-      {
-        id: 3,
-        name: "Arsenal",
-        backgroundImage: "/images/arsenalLogo.png",
-      },
-    ];
+    const clubsYouFollow = await require("../../utils/getClubs")({ limit: 3 });
 
     res.clearCookie("userToken", {
       httpOnly: true,
