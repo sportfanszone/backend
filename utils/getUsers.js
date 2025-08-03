@@ -1,10 +1,8 @@
 const { User } = require("../models");
 const { Op } = require("sequelize");
 
-// Function to get all users with optional filtering, sorting, pagination, and exclusion
 async function getAllUsers(options = {}) {
   try {
-    // Destructure options with default values
     const {
       where = {},
       attributes = [
@@ -24,7 +22,6 @@ async function getAllUsers(options = {}) {
       excludeUserIds = [],
     } = options;
 
-    // Combine the provided where clause with exclusion of specific user IDs
     const finalWhere = {
       ...where,
       id: {
@@ -32,7 +29,6 @@ async function getAllUsers(options = {}) {
       },
     };
 
-    // Fetch users with the provided options
     const users = await User.findAll({
       where: finalWhere,
       attributes,
