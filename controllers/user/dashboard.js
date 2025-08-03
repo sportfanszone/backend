@@ -1,28 +1,8 @@
 module.exports = async (req, res) => {
   try {
-    const profileViews = [
-      {
-        id: 1,
-        firstName: "Amaka",
-        middleName: "Chisom",
-        lastName: "Okeke",
-        profileImageUrl: "/images/blankProfile.png",
-      },
-      {
-        id: 2,
-        firstName: "Tunde",
-        middleName: "Ayoola",
-        lastName: "Fashola",
-        profileImageUrl: "/images/blankProfile.png",
-      },
-      {
-        id: 3,
-        firstName: "Blessing",
-        middleName: "Ngozi",
-        lastName: "Umeh",
-        profileImageUrl: "/images/blankProfile.png",
-      },
-    ];
+    const profileViews = await require("../../utils/getUsers")({
+      excludeUserIds: [req.user.id],
+    });
 
     const leaguesYouFollow = [
       {
