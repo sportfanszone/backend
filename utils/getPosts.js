@@ -73,7 +73,7 @@ const getAllPosts = async (options = {}) => {
           required: false,
         },
       ],
-      attributes: ["id", "title", "content", "createdAt", "likes"],
+      attributes: ["id", "title", "content", "link", "createdAt", "likes"],
       order: [[sortBy, sortOrder]],
       limit: parseInt(limit),
       offset: parseInt(offset),
@@ -113,6 +113,7 @@ const getAllPosts = async (options = {}) => {
         shares: 0,
         commentCount: await Comment.count({ where: { PostId: post.id } }),
         likedByUser: userId ? likedPostIds.has(post.id) : false,
+        link: post.link,
         user: post.User
           ? {
               firstName: post.User.firstName,
