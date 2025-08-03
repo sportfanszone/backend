@@ -9,5 +9,9 @@ router.get(
   "/get_trending_posts",
   require("../../controllers/root/getTrendingPosts")
 );
+router.get(
+  "/get_top_contributors",
+  require("../../controllers/root/getTopContributors")
+);
 
 module.exports = router;
