@@ -1,6 +1,5 @@
 const getLeague = require("../../utils/getLeague");
 const getClubsByLeague = require("../../utils/getClubsByLeague");
-const { League } = require("../../models");
 
 module.exports = async (req, res) => {
   try {
