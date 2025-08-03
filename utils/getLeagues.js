@@ -1,26 +1,56 @@
 const { League, Club } = require("../models");
-const { fn, col, literal } = require("sequelize");
+const { fn, col, Op } = require("sequelize");
 
-module.exports = async (pinned = false) => {
+async function getLeagues(options = {}) {
   try {
-    const leagues = await League.findAll({
-      where: pinned ? { pinned: true } : {},
-      attributes: {
-        include: [[fn("COUNT", col("Clubs.id")), "clubCount"]],
-      },
-      include: [
+    const {
+      where = {},
+      attributes = [
+        "id",
+        "name",
+        "description",
+        "logo",
+        "backgroundImage",
+        "pinned",
+        "lastAccess",
+      ],
+      order = [[fn("COUNT", col("Clubs.id")), "DESC"]],
+      limit = 10,
+      offset = 0,
+      include = [
         {
           model: Club,
           as: "Clubs",
           attributes: [],
+          required: false,
         },
       ],
-      group: ["League.id"],
-      order: [[literal("clubCount"), "DESC"]],
+      excludeLeagueIds = [],
+    } = options;
+
+    const finalWhere = {
+      ...where,
+      id: {
+        [Op.notIn]: excludeLeagueIds,
+      },
+    };
+
+    const leagues = await League.findAll({
+      where: finalWhere,
+      attributes: [...attributes, [fn("COUNT", col("Clubs.id")), "clubCount"]],
+      include,
+      group: attributes.map((attr) => `League.${attr}`),
+      order,
+      limit,
+      offset,
+      subQuery: false,
     });
 
     return leagues;
   } catch (error) {
-    throw new Error(error.message || "Failed to fetch pinned leagues");
+    console.error("Error fetching leagues:", error);
+    throw new Error(error.message || "Failed to fetch leagues");
   }
-};
+}
+
+module.exports = getLeagues;

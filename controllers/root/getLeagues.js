@@ -3,7 +3,7 @@ const getLeagues = require("../../utils/getLeagues");
 module.exports = async (req, res) => {
   try {
     const pinned = req.query?.pinned === "true" ? true : false;
-    const leagues = await getLeagues(pinned);
+    const leagues = await getLeagues({ where: pinned ? { pinned } : {} });
 
     res.json({
       leagues,
