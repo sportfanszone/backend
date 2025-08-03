@@ -34,4 +34,8 @@ router.post(
 );
 router.post("/delete_club/:id", require("../../controllers/admin/deleteClub"));
 
+router.get(
+  "/get_dashboard_cards_data",
+  require("../../controllers/admin/getDashboardCardsData")
+);
 module.exports = router;
