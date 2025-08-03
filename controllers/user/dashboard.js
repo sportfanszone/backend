@@ -4,23 +4,9 @@ module.exports = async (req, res) => {
       excludeUserIds: [req.user.id],
     });
 
-    const leaguesYouFollow = [
-      {
-        id: 1,
-        name: "English Premier League",
-        backgroundImage: "/images/premierLeagueLogo.png",
-      },
-      {
-        id: 2,
-        name: "La Liga",
-        backgroundImage: "/images/laLigaLogo.png",
-      },
-      {
-        id: 3,
-        name: "Serie A",
-        backgroundImage: "/images/serieALogo.png",
-      },
-    ];
+    const leaguesYouFollow = await require("../../utils/getLeagues")({
+      limit: 3,
+    });
 
     const clubsYouFollow = [
       {
