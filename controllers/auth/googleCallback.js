@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const genToken = require("../../utils/genToken");
 
 // Centralized error messages

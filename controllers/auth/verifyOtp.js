@@ -1,3 +1,5 @@
+const genToken = require("../../utils/genToken");
+
 module.exports = async (req, res) => {
   try {
     // Check if OTP is provided
@@ -35,6 +37,18 @@ module.exports = async (req, res) => {
       });
     }
     console.log("User created successfully:", userCreated);
+
+    // Generate JWT token
+    const token = genToken(userCreated.user);
+
+    // Set secure cookie
+    res.cookie("userToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
+      path: "/",
+    });
 
     res.clearCookie("allowOtp");
     return res.json({
