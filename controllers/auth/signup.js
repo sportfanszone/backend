@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { User, PendingSignup } = require("../../models");
 
 module.exports = async (req, res) => {
   try {
@@ -15,10 +15,10 @@ module.exports = async (req, res) => {
     }
 
     // Check if username already exists
-    const usernameExsits = await User.findOne({
+    const usernameExists = await User.findOne({
       where: { username: req.body.username },
     });
-    if (usernameExsits) {
+    if (usernameExists) {
       return res.status(400).json({
         status: "error",
         message: "Username already in use",
@@ -28,24 +28,34 @@ module.exports = async (req, res) => {
 
     // Generate OTP
     const otpCode = require("../../utils/genOtp")();
-    req.session.otp = otpCode;
-    req.session.user = req.body;
-    req.session.otpExpires = Date.now() + 3 * 60 * 1000;
+    const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
+    const pendingSignup = await PendingSignup.create({
+      email: req.body.email,
+      otp: otpCode,
+      otpExpires,
+      userData: ({
+        firstName,
+        middleName,
+        lastName,
+        username,
+        email,
+        password,
+      } = req.body),
+    });
+
+    // Save session (implicit with express-session)
     await require("../../utils/mails/signupOtp.mail")({
       user: req.body,
       otpCode,
     });
-    console.log("Generated Otp: " + otpCode);
+    console.log("Generated OTP:", otpCode);
 
-    res.cookie("allowOtp", "true", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3 * 60 * 1000,
-      sameSite: "lax",
-      path: "/",
-    });
-    res.json({ status: "success" });
+    console.log("pendingSignup.id");
+    console.log(pendingSignup.id);
+
+    // Return session ID
+    res.json({ status: "success", data: { sessionId: pendingSignup.id } });
   } catch (error) {
     console.error("Error in signup:", error);
     return res.status(500).json({

@@ -25,13 +25,13 @@ module.exports = async (req, res, next) => {
 
     const token = genToken(user);
 
-    res.cookie("userToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // true in prod
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      expires,
-    });
+    // res.cookie("userToken", token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production", // true in prod
+    //   sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    //   expires,
+    // });
 
-    res.json({ status: "success" });
+    res.json({ status: "success", token });
   })(req, res, next);
 };

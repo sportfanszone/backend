@@ -16,5 +16,9 @@ router.get(
   passport.authenticate("google", { session: false }),
   require("../../controllers/auth/googleCallback")
 );
+router.post(
+  "/validate_session",
+  require("../../controllers/auth/validateSession")
+);
 
 module.exports = router;
