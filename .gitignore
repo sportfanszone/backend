@@ -18,3 +18,6 @@ public/images/comment/*
 
 public/audios/comment/*
 !public/audios/comment/.gitkeep
+
+public/images/slider/*
+!public/images/slider/.gitkeep
