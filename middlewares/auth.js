@@ -8,7 +8,11 @@ async function authenticate(req, res, next) {
   if (!token) {
     return res
       .status(404)
-      .json({ status: "error", message: "No token", action: "logout" });
+      .json({
+        status: "error",
+        message: "Please login to continue",
+        action: "logout",
+      });
   }
 
   try {
