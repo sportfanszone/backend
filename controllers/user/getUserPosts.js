@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     }
 
     // Fetch post with associated data
-    const posts = await getPosts(userId);
+    const posts = await getPosts({ userId });
     console.log(posts);
 
     return res.status(200).json({

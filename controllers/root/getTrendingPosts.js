@@ -3,7 +3,7 @@ const getPosts = require("../../utils/getPosts");
 module.exports = async (req, res) => {
   try {
     const userId = req.user?.id;
-    const posts = await getPosts(userId);
+    const posts = await getPosts({ userId });
 
     res.json({
       posts,
