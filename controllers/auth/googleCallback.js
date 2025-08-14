@@ -31,20 +31,21 @@ module.exports = async (req, res) => {
 
     // Generate JWT token
     const token = genToken(user);
+    console.log("Generated token (truncated):", token.slice(0, 10) + "...");
 
-    // Set secure cookie
-    res.cookie("userToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      expires: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
-      path: "/",
-    });
-
-    console.log("Cookie set with token:", token);
-
-    // Redirect to dashboard
-    return res.redirect(`${process.env.FRONTEND_URL}/user/dashboard`);
+    // Validate environment variable
+    const frontendUrl = process.env.FRONTEND_URL;
+    if (!frontendUrl) {
+      console.error("FRONTEND_URL not set");
+      return res.status(500).json({
+        status: "error",
+        message: ERROR_MESSAGES.SERVER_ERROR,
+      });
+    }
+    return res.redirect(
+      302,
+      `${frontendUrl}/api/auth/google_callback?token=${token}`
+    );
   } catch (error) {
     console.error("Google callback error:", error);
     return res.status(500).json({
