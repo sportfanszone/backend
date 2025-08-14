@@ -6,10 +6,6 @@ router.get(
   require("../../controllers/root/getTopConversations")
 );
 router.get(
-  "/get_trending_posts",
-  require("../../controllers/root/getTrendingPosts")
-);
-router.get(
   "/get_top_contributors",
   require("../../controllers/root/getTopContributors")
 );
