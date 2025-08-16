@@ -11,6 +11,7 @@ const PostFile = require("./PostFile");
 const Comment = require("./Comment");
 const UserLikes = require("./UserLikes");
 const PendingSignup = require("./PendingSignup");
+const SliderImage = require("./SliderImage");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -42,6 +43,7 @@ db.PostFile = PostFile(sequelize, DataTypes);
 db.Comment = Comment(sequelize, DataTypes);
 db.UserLikes = UserLikes(sequelize, DataTypes);
 db.PendingSignup = PendingSignup(sequelize, DataTypes);
+db.SliderImage = SliderImage(sequelize, DataTypes);
 
 // Associations with CASCADE where appropriate
 db.User.belongsTo(db.Club, { foreignKey: "ClubId", onDelete: "SET NULL" });
