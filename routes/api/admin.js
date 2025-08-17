@@ -38,4 +38,13 @@ router.get(
   "/get_dashboard_cards_data",
   require("../../controllers/admin/getDashboardCardsData")
 );
+
+router.post(
+  "/upload_slider_images",
+  require("../../controllers/admin/addSliderImage")
+);
+router.delete(
+  "/delete_slider_image/:id",
+  require("../../controllers/admin/deleteSliderImage")
+);
 module.exports = router;

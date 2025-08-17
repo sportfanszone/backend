@@ -1,16 +1,24 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 const path = require("path");
 
-module.exports = function deleteUploadedFiles(files, baseDir) {
-  if (!files) return;
-  if (!baseDir) return;
+module.exports = async function deleteUploadedFiles(files, baseDir) {
+  if (!files || !baseDir) return;
 
-  Object.values(files).forEach((fileArray) => {
-    fileArray.forEach((file) => {
+  try {
+    let fileArray = [];
+    if (Array.isArray(files)) {
+      fileArray = files;
+    } else {
+      fileArray = Object.values(files).flat();
+    }
+
+    for (const file of fileArray) {
       const filePath = path.join(baseDir, file.filename);
-      fs.unlink(filePath, (err) => {
-        if (err) console.error("Failed to delete file:", filePath, err);
+      await fs.unlink(filePath).catch((err) => {
+        console.error("Failed to delete file:", filePath, err);
       });
-    });
-  });
+    }
+  } catch (err) {
+    console.error("Error in deleteUploadedFiles:", err);
+  }
 };
