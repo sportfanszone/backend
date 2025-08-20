@@ -1,7 +1,7 @@
 // controllers/addSliderImage.js
 const path = require("path");
 const { SliderImage } = require("../../models");
-const { uploadAsync } = require("../../middlewares/sliderUpload"); // Use sliderUpload
+const { uploadAsync } = require("../../middlewares/sliderUpload");
 const deleteUploadedFiles = require("../../utils/deleteUploadedFiles");
 
 module.exports = async (req, res) => {
