@@ -47,4 +47,9 @@ router.delete(
   "/delete_slider_image/:id",
   require("../../controllers/admin/deleteSliderImage")
 );
+router.delete(
+  "/delete_all_slider_images",
+  require("../../controllers/admin/deleteAllSliderImages")
+);
+
 module.exports = router;
