@@ -15,6 +15,7 @@ router.use("/admin", require("./admin"));
 
 router.get("/get_clubs", require("../../controllers/getClubs"));
 router.get("/get_leagues", require("../../controllers/getLeagues"));
+router.get("/get_user/:userId", require("../../controllers/getUser"));
 
 router.get("/slider", require("../../controllers/root/getSliderImages"));
 

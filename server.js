@@ -13,12 +13,11 @@ const app = express();
 
 require("./config/passport")(passport);
 
-// Initialize Sequelize session store
 const sessionStore = new SequelizeStore({
   db: db.sequelize,
   tableName: "Sessions",
-  checkExpirationInterval: 15 * 60 * 1000, // Clean expired sessions every 15 minutes
-  expiration: 3 * 60 * 1000, // 3 minutes
+  checkExpirationInterval: 15 * 60 * 1000,
+  expiration: 3 * 60 * 1000,
 });
 
 app.use(
@@ -41,7 +40,7 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 3 * 60 * 1000, // 3 minutes
+      maxAge: 3 * 60 * 1000,
     },
   })
 );
@@ -50,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require("./routes"));
 
-sessionStore.sync(); // Sync session table with MySQL
+sessionStore.sync();
 
 db.sequelize
   .sync({ force: false, alter: false, benchmark: true })

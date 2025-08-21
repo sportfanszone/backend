@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImageUrl: {
         type: DataTypes.STRING,
         allowNull: true,
-        // defaultValue: "/images/blankProfile.png",
+        defaultValue: "/images/blankProfile.png",
         validate: {
           notEmpty: false,
         },
@@ -89,11 +89,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       lastAccess: {
-        type: DataTypes.STRING,
-        defaultValue: Date.now(),
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
         allowNull: false,
         validate: {
-          notEmpty: true,
+          isDate: true,
         },
       },
       password: {
