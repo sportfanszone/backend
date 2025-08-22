@@ -42,7 +42,15 @@ module.exports = async (req, res) => {
           required: false,
         },
       ],
-      attributes: ["id", "title", "link", "content", "createdAt", "likes"],
+      attributes: [
+        "id",
+        "title",
+        "link",
+        "content",
+        "createdAt",
+        "likes",
+        "shares",
+      ],
       group: ["Post.id", "User.id", "PostFiles.id"],
     });
 
@@ -110,7 +118,7 @@ module.exports = async (req, res) => {
         : [],
       likes: post.likes || 0,
       link: post.link,
-      shares: 0,
+      shares: post.shares || 0,
       commentCount: await countAllComments(post.id),
       likedByUser, // Add whether the current user liked the post
       user: post.User

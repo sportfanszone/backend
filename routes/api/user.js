@@ -14,6 +14,7 @@ router.get(
   "/get_comment/:postId",
   require("../../controllers/user/getComment")
 );
+router.post("/create_share", require("../../controllers/user/createShare"));
 
 router.post("/create_like", require("../../controllers/user/createLike"));
 
