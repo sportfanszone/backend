@@ -13,8 +13,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    console.log("---Reached here");
-
     const comments = await require("../../utils/getCommentsByPostId")(
       postId,
       req.user.id
