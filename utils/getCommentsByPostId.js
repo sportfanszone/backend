@@ -11,8 +11,6 @@ const getCommentsByPostId = async (postId, userId = null, maxDepth = 5) => {
       throw new Error("Invalid UserId");
     }
 
-    const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
-
     // Collect all comment IDs to query UserLikes
     const allCommentIds = [];
 
@@ -85,26 +83,14 @@ const getCommentsByPostId = async (postId, userId = null, maxDepth = 5) => {
 
           const replies = await fetchComments(comment.id, depth + 1);
 
-          // Prepend BACKEND_URL to relative paths
-          const imageUrl = comment.imageUrl
-            ? comment.imageUrl.startsWith("http")
-              ? comment.imageUrl
-              : `${BACKEND_URL}${comment.imageUrl}`
-            : null;
-          const audioUrl = comment.audioUrl
-            ? comment.audioUrl.startsWith("http")
-              ? comment.audioUrl
-              : `${BACKEND_URL}${comment.audioUrl}`
-            : null;
-
           return {
             id: comment.id,
             replyCount,
             likes: comment.likes,
             shares: comment.shares,
             content: comment.content,
-            imageUrl,
-            audioUrl,
+            imageUrl: comment.imageUrl,
+            audioUrl: comment.audioUrl,
             user: comment.User
               ? {
                   id: comment.User.id,
