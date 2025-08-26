@@ -9,21 +9,21 @@ module.exports = async (req, res) => {
     if (!userId || !uuidValidate(userId)) {
       return res.status(400).json({
         status: "error",
-        message: "Invalid post ID format",
+        message: "Invalid user ID format",
       });
     }
 
-    // Fetch post with associated data
-    const posts = await getPosts({ userId });
-    console.log(posts);
+    // Fetch posts with pagination
+    const { offset = 0, limit = 10 } = req.query;
+    const posts = await getPosts({ userId, offset, limit });
 
     return res.status(200).json({
       status: "success",
-      message: "Post retrieved successfully",
+      message: "Posts retrieved successfully",
       posts,
     });
   } catch (error) {
-    console.error("Error in getPost:", error);
+    console.error("Error in getUserPosts:", error);
     return res.status(500).json({
       status: "error",
       message: "An unexpected error occurred",
