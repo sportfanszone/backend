@@ -1,4 +1,12 @@
-const { Post, PostFile, User, Comment, UserLikes } = require("../../models");
+const {
+  Post,
+  PostFile,
+  User,
+  Comment,
+  UserLikes,
+  Club,
+  UserClub,
+} = require("../../models");
 const { Op } = require("sequelize");
 
 module.exports = async (req, res) => {
@@ -17,10 +25,14 @@ module.exports = async (req, res) => {
     const sortOrder = "DESC";
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
-    // Build where clause
+    // Build where clause for posts
     const where = {};
-    if (clubId) where.ClubId = clubId;
-    if (targetUserId) where.UserId = targetUserId;
+    if (clubId) {
+      where.ClubId = clubId; // Filter by specific club if provided
+    }
+    if (targetUserId) {
+      where.UserId = targetUserId; // Filter by specific user if provided
+    }
     if (searchQuery && searchQuery.trim() !== "") {
       where[Op.or] = [
         { title: { [Op.substring]: `%${searchQuery}%` } },
@@ -28,39 +40,64 @@ module.exports = async (req, res) => {
       ];
     }
 
+    // If user is authenticated and no clubId is provided, filter by followed clubs
+    if (userId && !clubId) {
+      const followedClubIds = (
+        await UserClub.findAll({
+          where: { UserId: userId },
+          attributes: ["ClubId"],
+        })
+      ).map((uc) => uc.ClubId);
+
+      if (followedClubIds.length === 0) {
+        return res.json({
+          topics: [],
+          total: 0,
+          topContributors: [],
+          message: "Follow some clubs to see posts!",
+        });
+      }
+
+      where.ClubId = { [Op.in]: followedClubIds };
+    }
+
+    // Build include clause
+    const include = [
+      {
+        model: User,
+        as: "User",
+        attributes: [
+          "firstName",
+          "middleName",
+          "lastName",
+          "username",
+          "profileImageUrl",
+        ],
+      },
+      {
+        model: PostFile,
+        where: { type: "image" },
+        required: false,
+        attributes: ["url"],
+        as: "PostFiles",
+      },
+      {
+        model: Comment,
+        as: "Comments",
+        attributes: [],
+        required: false,
+      },
+    ];
+
     // Fetch posts and count
     const { rows: posts, count } = await Post.findAndCountAll({
       where,
-      include: [
-        {
-          model: User,
-          as: "User",
-          attributes: [
-            "firstName",
-            "middleName",
-            "lastName",
-            "username",
-            "profileImageUrl",
-          ],
-        },
-        {
-          model: PostFile,
-          where: { type: "image" },
-          required: false,
-          attributes: ["url"],
-          as: "PostFiles",
-        },
-        {
-          model: Comment,
-          as: "Comments",
-          attributes: [],
-          required: false,
-        },
-      ],
+      include,
       attributes: ["id", "title", "content", "createdAt", "likes"],
       order: [[sortBy, sortOrder]],
       limit: parseInt(limit),
       offset,
+      distinct: true, // Ensure accurate count when using includes
     });
 
     // Fetch user likes for all posts if userId is provided
@@ -109,6 +146,7 @@ module.exports = async (req, res) => {
       }))
     );
 
+    // Placeholder for top contributors (replace with actual logic if needed)
     const topContributors = [
       {
         id: 1,
@@ -142,9 +180,11 @@ module.exports = async (req, res) => {
       },
     ];
 
+    console.log(formattedPosts);
+
     res.json({ topics: formattedPosts, total: count, topContributors });
   } catch (error) {
     console.error("Error fetching topics:", error);
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({ error: error.message || "Something went wrong" });
   }
 };

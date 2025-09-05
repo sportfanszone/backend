@@ -6,13 +6,14 @@ async function authenticate(req, res, next) {
     req.cookies?.userToken || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res
-      .status(404)
-      .json({
-        status: "error",
-        message: "Please login to continue",
-        action: "logout",
-      });
+    return (req.user = null), next();
+    // return res
+    //   .status(404)
+    //   .json({
+    //     status: "error",
+    //     message: "Please login to continue",
+    //     action: "logout",
+    //   });
   }
 
   try {
