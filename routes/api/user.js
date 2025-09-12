@@ -18,4 +18,9 @@ router.post("/create_share", require("../../controllers/user/createShare"));
 
 router.post("/create_like", require("../../controllers/user/createLike"));
 
+router.post(
+  "/settings/update_personal_info",
+  require("../../controllers/user/updatePersonalInfo")
+);
+
 module.exports = router;
