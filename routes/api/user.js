@@ -26,5 +26,9 @@ router.post(
   "/settings/update_password",
   require("../../controllers/user/updatePassword")
 );
+router.post(
+  "/settings/update_photos",
+  require("../../controllers/user/updatePhotos")
+);
 
 module.exports = router;
