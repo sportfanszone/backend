@@ -2,9 +2,10 @@ const getPosts = require("../../utils/getPosts");
 
 module.exports = async (req, res) => {
   try {
+    const { since, limit, offset } = req.query;
     console.log("----Getting posts");
     // Fetch post with associated data
-    const posts = await getPosts();
+    const posts = await getPosts({ since, limit, offset });
     console.log(posts);
 
     return res.status(200).json({

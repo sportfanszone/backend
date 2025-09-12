@@ -1,5 +1,6 @@
 const { Post, PostFile, User, Comment, UserLikes } = require("../models");
 const { validate: uuidValidate } = require("uuid");
+const { Op } = require("sequelize");
 
 const getAllPosts = async (options = {}) => {
   try {
@@ -12,6 +13,7 @@ const getAllPosts = async (options = {}) => {
       sortOrder = "DESC",
       limit = 10,
       offset = 0,
+      since,
     } = options;
 
     // Validate UUIDs if provided
@@ -43,6 +45,7 @@ const getAllPosts = async (options = {}) => {
     const where = {};
     if (clubId) where.ClubId = clubId;
     if (targetUserId) where.UserId = targetUserId;
+    if (since) where.createdAt = { [Op.gt]: new Date(since) };
 
     // Fetch posts
     const posts = await Post.findAll({

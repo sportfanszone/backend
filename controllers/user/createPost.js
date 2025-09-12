@@ -40,11 +40,17 @@ module.exports = async (req, res) => {
 
       await PostFile.bulkCreate(files);
     }
-
+    console.log(
+      await require("../../utils/getPost")(post.id, {
+        userId: req.user.id,
+      })
+    );
     return res.status(200).json({
       status: "success",
       message: "Post created successfully",
-      post,
+      post: await require("../../utils/getPost")(post.id, {
+        userId: req.user.id,
+      }),
     });
   } catch (error) {
     console.error("Error in addPost:", error);
