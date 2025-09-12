@@ -1,4 +1,3 @@
-// TODO: create controller to update personal info for users
 const { User } = require("../../models");
 const bcrypt = require("bcryptjs");
 
