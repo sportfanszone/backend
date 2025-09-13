@@ -103,6 +103,23 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
+      notificationPreferences: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: {
+          profileView: true,
+          topicComment: true,
+          achievement: true,
+          commentReply: true,
+          follow: true,
+          clubTopic: true,
+          adminBroadcast: true,
+          postLike: true,
+        },
+        validate: {
+          notEmpty: true,
+        },
+      },
     },
     {
       timestamps: true,

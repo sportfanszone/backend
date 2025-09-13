@@ -30,5 +30,9 @@ router.post(
   "/settings/update_photos",
   require("../../controllers/user/updatePhotos")
 );
+router.post(
+  "/settings/update_notifications",
+  require("../../controllers/user/updateNotifications")
+);
 
 module.exports = router;
