@@ -35,4 +35,9 @@ router.post(
   require("../../controllers/user/updateNotifications")
 );
 
+router.post(
+  "/toggle_club/:clubId",
+  require("../../controllers/user/toggleClub")
+);
+
 module.exports = router;

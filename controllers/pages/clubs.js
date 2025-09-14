@@ -1,11 +1,14 @@
 const getLeague = require("../../utils/getLeague");
-const getClubsByLeague = require("../../utils/getClubsByLeague");
+const getClubs = require("../../utils/getClubs");
 
 module.exports = async (req, res) => {
   try {
     const { league: leagueId } = req.query;
 
-    const clubs = await getClubsByLeague(leagueId);
+    const clubs = await getClubs({
+      where: { LeagueId: leagueId },
+      userId: req.user?.id,
+    });
 
     const league = await getLeague(leagueId);
 
