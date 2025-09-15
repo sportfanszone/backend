@@ -32,6 +32,6 @@ module.exports = async (req, res, next) => {
     //   expires,
     // });
 
-    res.json({ status: "success", token });
+    res.json({ status: "success", token, user });
   })(req, res, next);
 };
