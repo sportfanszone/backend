@@ -3,19 +3,19 @@ module.exports = async () => {
     const achievements = [
       {
         name: "",
-        image: "/images/blankProfile.png",
+        image: "/images/activeFan.jpg",
       },
       {
         name: "",
-        image: "/images/blankProfile.png",
+        image: "/images/fansInfluencer.jpg",
       },
       {
         name: "",
-        image: "/images/blankProfile.png",
+        image: "/images/topContributor.jpg",
       },
       {
         name: "",
-        image: "/images/blankProfile.png",
+        image: "/images/viralFan.jpg",
       },
     ];
 
