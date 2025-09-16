@@ -32,11 +32,11 @@ module.exports = async function (req, res, next) {
 
     req.user = user;
     // logout(res);
-    res.clearCookie("userToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    });
+    // res.clearCookie("userToken", {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: "lax",
+    // });
     login(user, res);
 
     return next();

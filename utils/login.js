@@ -10,11 +10,11 @@ module.exports = (
     expiresIn,
   });
 
-  return res.cookie("userToken", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    expires,
-    sameSite: "lax",
-    httpOnly: true,
-  });
+  // return res.cookie("userToken", token, {
+  //   httpOnly: true,
+  //   secure: process.env.NODE_ENV === "production",
+  //   expires,
+  //   sameSite: "lax",
+  //   httpOnly: true,
+  // });
 };

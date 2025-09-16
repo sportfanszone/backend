@@ -10,11 +10,11 @@ module.exports = async (req, res) => {
 
     const clubsYouFollow = await require("../../utils/getClubs")({ limit: 3 });
 
-    res.clearCookie("userToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    });
+    // res.clearCookie("userToken", {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === "production",
+    //   sameSite: "lax",
+    // });
 
     return res.json({
       status: "success",
